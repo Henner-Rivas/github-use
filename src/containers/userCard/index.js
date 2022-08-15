@@ -1,10 +1,8 @@
 import React from "react";
-import { Grid, CardMedia, Stack } from "@mui/material";
+import { Grid, CardMedia, Stack, Typography } from "@mui/material";
 import PrincipalInformacion from "../../components/principalInformation";
 import Descripcion from "../Description";
-const UserCard = ({ userApi }) => {
-  console.log("🚀 ~ file: index.js ~ line 5 ~ UserCard ~ avatar_url", userApi);
-
+const UserCard = ({ userApi, notFound }) => {
   return (
     <>
       <Grid container spacing={2} columns={{ xs: 6, md: 12 }}>
@@ -23,6 +21,11 @@ const UserCard = ({ userApi }) => {
           </Grid>
         )}
         <Grid item xs={9}>
+          {notFound && (
+            <Typography sx={{ color: "red" }}>
+              Usuario no encontrado{" "}
+            </Typography>
+          )}
           <Stack direction="column" spacing={1} sx={{ margin: "30px" }}>
             <PrincipalInformacion userState={userApi} />
             <Descripcion userState={userApi} />

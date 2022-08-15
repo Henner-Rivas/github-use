@@ -9,23 +9,17 @@ const App = () => {
   const [userInput, setUserInput] = useState(user);
   const [userApi, setUserApi] = useState();
   const [notFound, setNotFound] = useState(false);
-  console.log("🚀 ~ file: App.js ~ line 9 ~ App ~ userApi", userApi);
 
-  if (userInput === "octocat") {
-    let dataParce = JSON.stringify(userApi);
-    window.localStorage.setItem("octocat", dataParce);
-  }
   async function getUserGithub(userInput) {
     const userGithub = await get_user(userInput);
 
     if (userGithub.message == "Not Found") {
-      const octocat = localStorage.getItem("octocat");
-      const octParce = JSON.parse(octocat);
-      console.log(octocat);
       setUserInput("octocat");
-      setUserApi(octParce);
       setNotFound(true);
     } else {
+      setTimeout(() => {
+        setNotFound(false);
+      }, 1000);
       setUserApi(userGithub);
     }
   }
@@ -45,7 +39,7 @@ const App = () => {
       }}
     >
       <Search setInputUser={setUserInput} userInput={userInput} />
-      <UserCard userApi={userApi} />
+      <UserCard userApi={userApi} notFound={notFound} />
     </Container>
   );
 };
